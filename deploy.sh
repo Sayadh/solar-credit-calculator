@@ -1,14 +1,25 @@
 #!/usr/bin/env sh
-# abort on errors
+
+# остановить публикацию при ошибках
 set -e
-# build
-yarn run build
-# navigate into the build output directory
-cd dist
-# if you are deploying to a custom domain
+
+# сборка
+npm run generate
+
+# переход в каталог сборки
+cd .output/public
+
+# если вы деплоите на кастомный домен
 # echo 'www.example.com' > CNAME
+
 git init
 git add -A
 git commit -m 'deploy'
-git push -f https://github.com/Sayadh/solar-credit-calculator.git main:gh-pages
+
+# если вы деплоите на https://<USERNAME>.github.io
+# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git main
+
+# если вы деплоите на https://<USERNAME>.github.io/<REPO>
+git push -f git@github.com:Sayadh/solar-credit-calculator.git main:gh-pages
+
 cd -

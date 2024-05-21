@@ -13,7 +13,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { prices, monthKWT, KWTS, numberMounts } from "./urils";
+import { prices, monthKWT, KWTS, numberMounts } from "./utils";
 
 const priceInMount = ref('');
 const priceInStation = ref(0);
