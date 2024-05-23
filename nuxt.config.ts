@@ -3,5 +3,4 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/solar-credit-calculator/',
   },
-  devtools: { enabled: true }
 })
