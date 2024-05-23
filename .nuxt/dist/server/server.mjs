@@ -1,4 +1,4 @@
-import { effectScope, reactive, hasInjectionContext, getCurrentInstance, inject, toRef, version, unref, computed, defineComponent, h, isReadonly, isRef, isShallow, isReactive, toRaw, ref, mergeProps, useSSRContext, defineAsyncComponent, provide, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, createApp } from "vue";
+import { effectScope, reactive, hasInjectionContext, getCurrentInstance, inject, toRef, version, unref, computed, defineComponent, h, isReadonly, isRef, isShallow, isReactive, toRaw, mergeProps, useSSRContext, defineAsyncComponent, provide, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, createApp } from "vue";
 import { $fetch } from "ofetch";
 import { baseURL } from "#internal/nuxt/paths";
 import { createHooks } from "hookable";
@@ -338,11 +338,11 @@ version.startsWith("3");
 function resolveUnref(r) {
   return typeof r === "function" ? r() : unref(r);
 }
-function resolveUnrefHeadInput(ref2, lastKey = "") {
-  if (ref2 instanceof Promise)
-    return ref2;
-  const root = resolveUnref(ref2);
-  if (!ref2 || !root)
+function resolveUnrefHeadInput(ref, lastKey = "") {
+  if (ref instanceof Promise)
+    return ref;
+  const root = resolveUnref(ref);
+  if (!ref || !root)
     return root;
   if (Array.isArray(root))
     return root.map((r) => resolveUnrefHeadInput(r, lastKey));
@@ -732,6 +732,60 @@ const plugins = [
   revive_payload_server_eJ33V7gbc6,
   components_plugin_KR1HBZs4kY
 ];
+const prices = {
+  1: 102e4,
+  // 3.45
+  2: 135e4,
+  // 4,6
+  3: 158e4,
+  // 5.05
+  4: 165e4,
+  // 5.75
+  5: 18e5,
+  // 6.90
+  6: 215e4,
+  // 7.47
+  7: 228e4,
+  // 8.05
+  8: 284e4
+  // 10.35
+};
+const monthKWT = 5800;
+const numberMounts = 84;
+const KWTS = [
+  {
+    kwt: 3.45,
+    value: 1
+  },
+  {
+    kwt: 4.6,
+    value: 2
+  },
+  {
+    kwt: 5.05,
+    value: 3
+  },
+  {
+    kwt: 5.75,
+    value: 4
+  },
+  {
+    kwt: 6.9,
+    value: 5
+  },
+  {
+    kwt: 7.47,
+    value: 6
+  },
+  {
+    kwt: 8.05,
+    value: 7
+  },
+  {
+    kwt: 10.35,
+    value: 8
+  }
+];
 const _export_sfc = (sfc, props) => {
   const target = sfc.__vccOpts || sfc;
   for (const [key, val] of props) {
@@ -740,27 +794,49 @@ const _export_sfc = (sfc, props) => {
   return target;
 };
 const _sfc_main$2 = {
-  __name: "app",
-  __ssrInlineRender: true,
-  setup(__props) {
-    const priceInMount = ref("");
-    const priceInStation = ref(0);
-    const recommendedKWT = ref(0);
-    const monthlyFee = ref(0);
-    const benefit = ref(0);
-    const monthIncome = ref(0);
-    return (_ctx, _push, _parent, _attrs) => {
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "calculator" }, _attrs))} data-v-6b91c722><h1 data-v-6b91c722>Հաշվիչ</h1><input${ssrRenderAttr("value", priceInMount.value)} type="number" placeholder="Ամսեկեան Հոսանքի ծախս" data-v-6b91c722><p data-v-6b91c722>Առաջարկվող կիլովատ: ${ssrInterpolate(recommendedKWT.value)} կվտ</p><p data-v-6b91c722>Կայանի գինը: ${ssrInterpolate(priceInStation.value)}դր.</p><p data-v-6b91c722>Ամսական վճարում: ${ssrInterpolate(parseInt(monthlyFee.value))} դր.</p><h3 data-v-6b91c722>Օգուտ: ${ssrInterpolate(parseInt(benefit.value))} դր.</h3><p data-v-6b91c722>Կայանի ամսեկան արտադրանք (Միջին): ${ssrInterpolate(parseInt(monthIncome.value))} դր.</p><button data-v-6b91c722>Հաշվիչ</button></div>`);
+  data() {
+    return {
+      priceInMount: "",
+      priceInStation: 0,
+      recommendedKWT: 0,
+      monthlyFee: 0,
+      benefit: 0,
+      monthIncome: 0
     };
+  },
+  methods: {
+    calculation() {
+      let indexKwt = -1;
+      const kwtStation = this.priceInMount / monthKWT;
+      let itemKwtsValue = 1;
+      KWTS.forEach((currentValue, index) => {
+        if (kwtStation >= (currentValue == null ? void 0 : currentValue.kwt)) {
+          indexKwt = index;
+        }
+      });
+      if (KWTS[indexKwt + 1]) {
+        itemKwtsValue = KWTS[indexKwt + 1].value;
+        this.recommendedKWT = KWTS[indexKwt + 1].kwt;
+        this.priceInStation = prices[itemKwtsValue];
+        this.monthlyFee = parseFloat(this.priceInStation / numberMounts);
+        this.benefit = this.priceInMount - this.monthlyFee;
+      } else {
+        alert("Свяжитесь с нами");
+      }
+      this.monthIncome = this.recommendedKWT * monthKWT;
+    }
   }
 };
+function _sfc_ssrRender(_ctx, _push, _parent, _attrs, $props, $setup, $data, $options) {
+  _push(`<div${ssrRenderAttrs(mergeProps({ class: "calculator" }, _attrs))} data-v-91e73fe1><h1 data-v-91e73fe1>Հաշվիչ</h1><input${ssrRenderAttr("value", $data.priceInMount)} type="number" placeholder="Ամսեկեան Հոսանքի ծախս" data-v-91e73fe1><p data-v-91e73fe1>Առաջարկվող կիլովատ: ${ssrInterpolate($data.recommendedKWT)} կվտ</p><p data-v-91e73fe1>Կայանի գինը: ${ssrInterpolate($data.priceInStation)}դր.</p><p data-v-91e73fe1>Ամսական վճարում: ${ssrInterpolate(parseInt($data.monthlyFee))} դր.</p><h3 data-v-91e73fe1>Օգուտ: ${ssrInterpolate(parseInt($data.benefit))} դր.</h3><p data-v-91e73fe1>Կայանի ամսեկան արտադրանք (Միջին): ${ssrInterpolate(parseInt($data.monthIncome))} դր.</p><button data-v-91e73fe1>Հաշվիչ</button></div>`);
+}
 const _sfc_setup$2 = _sfc_main$2.setup;
 _sfc_main$2.setup = (props, ctx) => {
   const ssrContext = useSSRContext();
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("app.vue");
   return _sfc_setup$2 ? _sfc_setup$2(props, ctx) : void 0;
 };
-const AppComponent = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-6b91c722"]]);
+const AppComponent = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["ssrRender", _sfc_ssrRender], ["__scopeId", "data-v-91e73fe1"]]);
 const _sfc_main$1 = {
   __name: "nuxt-error-page",
   __ssrInlineRender: true,

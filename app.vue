@@ -11,39 +11,77 @@
     </div>
 </template>
 
-<script setup>
+<script>
+
 import { ref } from 'vue';
 import { prices, monthKWT, KWTS, numberMounts } from "./utils";
 
-const priceInMount = ref('');
-const priceInStation = ref(0);
-const recommendedKWT = ref(0);
-const monthlyFee = ref(0);
-const benefit = ref(0);
-const monthIncome = ref(0);
-
-const calculation = () => {
-    let indexKwt = -1;
-    const kwtStation = priceInMount.value / monthKWT;
-    let itemKwtsValue = 1;
-    KWTS.forEach((currentValue, index) => {
-        if (kwtStation >= currentValue?.kwt) {
-            indexKwt = index;
-        }
-    });
-    if (KWTS[indexKwt + 1]) {
-        itemKwtsValue = KWTS[indexKwt + 1].value;
-        recommendedKWT.value = KWTS[indexKwt + 1].kwt;
-
-        priceInStation.value = prices[itemKwtsValue];
-        monthlyFee.value = parseFloat(priceInStation.value / numberMounts);
-        benefit.value = priceInMount.value - monthlyFee.value;
-    } else {
-        alert('Свяжитесь с нами');
+export default {
+  data() {
+    return {
+      priceInMount: '',
+      priceInStation: 0,
+      recommendedKWT: 0,
+      monthlyFee: 0,
+      benefit: 0,
+      monthIncome: 0,
     }
+  },
 
-    monthIncome.value = recommendedKWT.value * monthKWT
-};
+  methods: {
+    calculation() {
+      let indexKwt = -1;
+      const kwtStation = this.priceInMount / monthKWT;
+      let itemKwtsValue = 1;
+      KWTS.forEach((currentValue, index) => {
+        if (kwtStation >= currentValue?.kwt) {
+          indexKwt = index;
+        }
+      });
+      if (KWTS[indexKwt + 1]) {
+        itemKwtsValue = KWTS[indexKwt + 1].value;
+        this.recommendedKWT = KWTS[indexKwt + 1].kwt;
+
+        this.priceInStation = prices[itemKwtsValue];
+        this.monthlyFee = parseFloat(this.priceInStation / numberMounts);
+        this.benefit = this.priceInMount - this.monthlyFee;
+      } else {
+        alert('Свяжитесь с нами');
+      }
+
+      this.monthIncome = this.recommendedKWT * monthKWT
+    }
+  }
+}
+// const priceInMount = ref('');
+// const priceInStation = ref(0);
+// const recommendedKWT = ref(0);
+// const monthlyFee = ref(0);
+// const benefit = ref(0);
+// const monthIncome = ref(0);
+
+// const calculation = () => {
+//     let indexKwt = -1;
+//     const kwtStation = priceInMount.value / monthKWT;
+//     let itemKwtsValue = 1;
+//     KWTS.forEach((currentValue, index) => {
+//         if (kwtStation >= currentValue?.kwt) {
+//             indexKwt = index;
+//         }
+//     });
+//     if (KWTS[indexKwt + 1]) {
+//         itemKwtsValue = KWTS[indexKwt + 1].value;
+//         recommendedKWT.value = KWTS[indexKwt + 1].kwt;
+//
+//         priceInStation.value = prices[itemKwtsValue];
+//         monthlyFee.value = parseFloat(priceInStation.value / numberMounts);
+//         benefit.value = priceInMount.value - monthlyFee.value;
+//     } else {
+//         alert('Свяжитесь с нами');
+//     }
+//
+//     monthIncome.value = recommendedKWT.value * monthKWT
+// };
 </script>
 
 <style scoped>
