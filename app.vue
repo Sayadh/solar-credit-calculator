@@ -11,7 +11,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
 
 import { ref } from 'vue';
 import { prices, monthKWT, KWTS, numberMounts } from "./utils";

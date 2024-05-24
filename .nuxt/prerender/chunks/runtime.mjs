@@ -57,7 +57,7 @@ function _expandFromEnv(value) {
 
 const inlineAppConfig = {
   "nuxt": {
-    "buildId": "8c842b84-ed1d-4308-ac57-c37f0de29369"
+    "buildId": "faab2e10-e93a-4e22-85a9-258168e970c9"
   }
 };
 
@@ -773,7 +773,7 @@ const _f4b49z = eventHandler((event) => {
   return readAsset(id);
 });
 
-const _lazy_3opKjd = () => import('./_/renderer.mjs').then(function (n) { return n.r; });
+const _lazy_3opKjd = () => import('./_/renderer.mjs');
 
 const handlers = [
   { route: '', handler: _f4b49z, lazy: false, middleware: true, method: undefined },

@@ -1,10 +1,10 @@
 export default {
-  "_Cx1HJBrP.js": {
+  "_DhAwhPCA.js": {
     "resourceType": "script",
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "Cx1HJBrP.js",
+    "file": "DhAwhPCA.js",
     "name": "vue.f36acd1f",
     "imports": [
       "node_modules/nuxt/dist/app/entry.js"
@@ -15,15 +15,17 @@ export default {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "Dh1v2z_L.js",
+    "file": "BcuYK7gp.js",
     "name": "error-404",
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-404.vue",
     "isDynamicEntry": true,
     "imports": [
       "node_modules/nuxt/dist/app/entry.js",
-      "_Cx1HJBrP.js"
+      "_DhAwhPCA.js"
     ],
-    "css": []
+    "css": [
+      "error-404.JekaaCis.css"
+    ]
   },
   "error-404.JekaaCis.css": {
     "file": "error-404.JekaaCis.css",
@@ -36,15 +38,17 @@ export default {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "CYRzF4Jz.js",
+    "file": "2fJEVzOS.js",
     "name": "error-500",
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-500.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_Cx1HJBrP.js",
+      "_DhAwhPCA.js",
       "node_modules/nuxt/dist/app/entry.js"
     ],
-    "css": []
+    "css": [
+      "error-500.CNP9nqm1.css"
+    ]
   },
   "error-500.CNP9nqm1.css": {
     "file": "error-500.CNP9nqm1.css",
@@ -57,7 +61,7 @@ export default {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "5i7SQtxP.js",
+    "file": "DfUN3_TD.js",
     "name": "entry",
     "src": "node_modules/nuxt/dist/app/entry.js",
     "isEntry": true,
@@ -66,12 +70,11 @@ export default {
       "node_modules/@nuxt/ui-templates/dist/templates/error-500.vue"
     ],
     "css": [
-      "entry.CXPwpTx8.css"
-    ],
-    "_globalCSS": true
+      "entry.0C6Zc3PY.css"
+    ]
   },
-  "entry.CXPwpTx8.css": {
-    "file": "entry.CXPwpTx8.css",
+  "entry.0C6Zc3PY.css": {
+    "file": "entry.0C6Zc3PY.css",
     "resourceType": "style",
     "prefetch": true,
     "preload": true
