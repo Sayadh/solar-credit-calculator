@@ -1,13 +1,29 @@
 <template>
+    <div class="logo">
+        <a href="https://assolararmavir.am/"><img src="public/as_Solar_logo.png"></a>
+    </div>
     <div class="calculator">
         <h1>Հաշվիչ</h1>
         <input v-model="priceInMount" type="number" placeholder="Ամսեկեան Հոսանքի ծախս">
+        <select v-model="AnualinterestRate">
+            <option disabled selected>Տոկոս</option>
+            <option>0</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+        </select>
         <p>Առաջարկվող կիլովատ: {{ recommendedKWT }} կվտ</p>
         <p>Կայանի գինը: {{ priceInStation }}դր.</p>
-        <p>Ամսական վճարում: {{ parseInt(monthlyFee) }} դր.</p>
+        <p>Տոկոսադրույք: {{ AnualinterestRate }}%</p>
+        <p>Տարի: 7</p>
+        <p>Ամսական մոտավոր վճարում: {{ parseInt(monthlyPayment) }} դր.</p>
         <h3>Օգուտ: {{ parseInt(benefit) }} դր.</h3>
-        <p>Կայանի ամսեկան արտադրանք (Միջին): {{ parseInt(monthIncome) }} դր.</p>
-        <button @click="calculation">Հաշվիչ</button>
+        <h3>Տարեկան Օգուտ: {{ parseInt(yearlyBenefit) }} դր.</h3>
+        <strong><em><h4>Կայանի ամսեկան արտադրանք (Միջին): {{ parseInt(monthIncome) }} դր.</h4></em></strong>
+        <button :disabled="!priceInMount" @click="calculation">Հաշվել</button>
     </div>
 </template>
 
@@ -59,6 +75,10 @@ const recommendedKWT = ref(0);
 const monthlyFee = ref(0);
 const benefit = ref(0);
 const monthIncome = ref(0);
+const AnualinterestRate = ref(0);
+const monthlyPayment = ref(0);
+const yearlyBenefit = ref(0)
+
 
 const calculation = () => {
     let indexKwt = -1;
@@ -72,19 +92,33 @@ const calculation = () => {
     if (KWTS[indexKwt + 1]) {
         itemKwtsValue = KWTS[indexKwt + 1].value;
         recommendedKWT.value = KWTS[indexKwt + 1].kwt;
-
+        monthIncome.value = recommendedKWT.value * monthKWT
         priceInStation.value = prices[itemKwtsValue];
         monthlyFee.value = parseFloat(priceInStation.value / numberMounts);
-        benefit.value = priceInMount.value - monthlyFee.value;
     } else {
         alert('Свяжитесь с нами');
     }
-
-    monthIncome.value = recommendedKWT.value * monthKWT
+    const annualInterestRate = Number(AnualinterestRate.value) / 100;
+    const numberOfPayments = 7 * 12;
+    const monthlyInterestRate = annualInterestRate / 12;
+    monthlyPayment.value =  Number(AnualinterestRate.value) ? priceInStation.value * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) / (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1) : Number(monthlyFee.value);
+    benefit.value = priceInMount.value - monthlyPayment.value;
+    yearlyBenefit.value = (Number(monthIncome.value) - monthlyPayment.value)*12
 };
 </script>
 
 <style scoped>
+.logo{
+    width: 280px;
+    height: 100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.logo img{
+    width: 100%;
+    height: 100%;
+
+}
 .calculator {
     max-width: 450px;
     margin: 50px auto;
@@ -135,5 +169,31 @@ button:hover {
 
 button:active {
     background-color: #1e7e34;
+}
+select{
+    width:100%;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: black;
+    padding: 10px;
+
+}
+
+
+@media (max-width: 768px){
+    .logo{
+        width: 200px;
+        height: 70px;
+    }
+    .calculator {
+        max-width: 350px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 2px solid #eee;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
 }
 </style>

@@ -1,10 +1,10 @@
 export default {
-  "_DhAwhPCA.js": {
+  "_DflrnhOP.js": {
     "resourceType": "script",
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "DhAwhPCA.js",
+    "file": "DflrnhOP.js",
     "name": "vue.f36acd1f",
     "imports": [
       "node_modules/nuxt/dist/app/entry.js"
@@ -15,13 +15,13 @@ export default {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "BcuYK7gp.js",
+    "file": "DkzPkfD5.js",
     "name": "error-404",
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-404.vue",
     "isDynamicEntry": true,
     "imports": [
       "node_modules/nuxt/dist/app/entry.js",
-      "_DhAwhPCA.js"
+      "_DflrnhOP.js"
     ],
     "css": [
       "error-404.JekaaCis.css"
@@ -38,12 +38,12 @@ export default {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "2fJEVzOS.js",
+    "file": "CVqmoxpc.js",
     "name": "error-500",
     "src": "node_modules/@nuxt/ui-templates/dist/templates/error-500.vue",
     "isDynamicEntry": true,
     "imports": [
-      "_DhAwhPCA.js",
+      "_DflrnhOP.js",
       "node_modules/nuxt/dist/app/entry.js"
     ],
     "css": [
@@ -61,7 +61,7 @@ export default {
     "module": true,
     "prefetch": true,
     "preload": true,
-    "file": "DfUN3_TD.js",
+    "file": "CAGhitsx.js",
     "name": "entry",
     "src": "node_modules/nuxt/dist/app/entry.js",
     "isEntry": true,
@@ -70,13 +70,29 @@ export default {
       "node_modules/@nuxt/ui-templates/dist/templates/error-500.vue"
     ],
     "css": [
-      "entry.0C6Zc3PY.css"
+      "entry.B4VNPH_k.css"
+    ],
+    "assets": [
+      "as_Solar_logo.WhOVJss4.png"
     ]
   },
-  "entry.0C6Zc3PY.css": {
-    "file": "entry.0C6Zc3PY.css",
+  "entry.B4VNPH_k.css": {
+    "file": "entry.B4VNPH_k.css",
     "resourceType": "style",
     "prefetch": true,
     "preload": true
+  },
+  "as_Solar_logo.WhOVJss4.png": {
+    "file": "as_Solar_logo.WhOVJss4.png",
+    "resourceType": "image",
+    "prefetch": true,
+    "mimeType": "image/png"
+  },
+  "public/as_Solar_logo.png": {
+    "resourceType": "image",
+    "prefetch": true,
+    "mimeType": "image/png",
+    "file": "as_Solar_logo.WhOVJss4.png",
+    "src": "public/as_Solar_logo.png"
   }
 }
